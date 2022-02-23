@@ -22,6 +22,9 @@
                     <span *ngIf=" problemeForm.get('prenom').errors && problemeForm.get('prenom').errors['minlength']">
                         Le texte doit contenir plus de 2 caractères
                     </span>
+                    <span *ngIf=" problemeForm.get('prenom').errors && problemeForm.get('prenom').errors['required']">
+                        La valeur ne doit pas être null
+                    </span>
                   </div>
             </div>
       </form>
