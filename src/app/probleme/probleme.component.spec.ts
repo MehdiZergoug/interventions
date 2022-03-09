@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { ProblemeComponent } from './probleme.component';
 
 describe('ProblemeComponent', () => {
@@ -39,7 +38,7 @@ describe('ProblemeComponent', () => {
     let zone = component.problemeForm.controls['prenom'];
     zone.setValue("a".repeat(2));
     let errors = zone.errors || {};
-    expect(errors['minlength']).toBeTruthy();
+    expect(errors['minlength']).toBeFalsy();
   });
 
   it("#2 | Zone PRÉNOM valide avec 3 caractère", () => {
@@ -64,13 +63,13 @@ describe('ProblemeComponent', () => {
   it("#5 | Zone PRÉNOM valide avec 10 espace", () => {
     let zone = component.problemeForm.controls['prenom'];
     zone.setValue("          ");
-    expect(zone.valid).toBeTruthy();
+    expect(zone.valid).toBeFalsy();
   });
 
   it("#6 | Zone PRÉNOM valide avec 2 espace et 1 caractère", () => {
     let zone = component.problemeForm.controls['prenom'];
     zone.setValue("  a");
-    expect(zone.valid).toBeTruthy();
+    expect(zone.valid).toBeFalsy();
   });
 
 });
