@@ -1,3 +1,4 @@
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { TypeproblemeService } from 'src/typeprobleme.service';
@@ -29,6 +30,7 @@ export class ProblemeComponent implements OnInit {
       prenom: ['', [VerifierCaracteresValidator.longueurMinimum(3), Validators.required]],
       nom: ['', [Validators.maxLength(50), Validators.required]],
       noTypeprobleme: ['', [Validators.required]],
+      notification: ["Ne pas me notifier"],
       courrielGroup: this.fb.group({
         courriel: [{value: '', disabled: true}],
         courrielConfirmation: [{value: '', disabled: true}],
@@ -38,7 +40,10 @@ export class ProblemeComponent implements OnInit {
 
     this.typesprobleme.obtenirTypeprobleme()
     .subscribe(cat => this.categoriesProduits = cat,
-               error => this.errorMessage = <any>error); 
+               error => this.errorMessage = <any>error);
+
+    this.problemeForm.get("notification").valueChanges
+    .subscribe(value => this.appliquerNotification(value));
   }
 
 
@@ -88,7 +93,7 @@ export class ProblemeComponent implements OnInit {
       }   
       else
       {
-        if(typeProbleme === 'Ne pas me notifier par courriel')
+        if(typeProbleme === 'Ne pas me notifier')
         {
           courrielControl.setValidators([Validators.required]);      
           courrielControl.disable();
@@ -114,7 +119,7 @@ export class ProblemeComponent implements OnInit {
       }   
       else
       {
-        if(typeProbleme === 'Ne pas me notifier par messagerie texte')
+        if(typeProbleme === 'Ne pas me notifier')
         {
 
           
